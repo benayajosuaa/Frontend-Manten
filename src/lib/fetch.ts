@@ -1,4 +1,17 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
+const DEFAULT_API_BASE_URL = "http://api-manten.kamar320.com/api";
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || DEFAULT_API_BASE_URL;
+
+function getApiUrl(path: string) {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  if (typeof window !== "undefined" && API_BASE_URL.startsWith("http://")) {
+    return `/api/backend${normalizedPath}`;
+  }
+
+  return `${API_BASE_URL.replace(/\/$/, "")}${normalizedPath}`;
+}
 
 export async function apiFetch(
   path: string,
@@ -9,7 +22,7 @@ export async function apiFetch(
       ? localStorage.getItem("token")
       : null;
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(getApiUrl(path), {
     ...options,
     headers: {
       Accept: "application/json",
