@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 const DEFAULT_API_BASE_URL = "http://api-manten.kamar320.com/api";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || DEFAULT_API_BASE_URL;
+  process.env.BACKEND_API_BASE_URL ||
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  DEFAULT_API_BASE_URL;
 
 type RouteContext = {
   params: Promise<{

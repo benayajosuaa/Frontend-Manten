@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
+import { apiFetch } from "@/lib/fetch";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -40,26 +41,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "http://api-manten.kamar320.com/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert(data.error || data.message || "Login gagal");
-        return;
-      }
+      const data = await apiFetch("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       // Simpan JWT
       localStorage.setItem("token", data.token);
@@ -68,7 +56,7 @@ export default function LoginPage() {
       router.push("/dashboard");
     } catch (error) {
       console.error(error);
-      alert("Terjadi kesalahan.");
+      alert(error instanceof Error ? error.message : "Terjadi kesalahan.");
     } finally {
       setLoading(false);
     }
