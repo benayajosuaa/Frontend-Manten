@@ -20,13 +20,10 @@ export async function getSettings(): Promise<Setting> {
   return data.data;
 }
 
-export async function updateSettings(body: any, token: string) {
+export async function updateSettings(body: any, token?: string) {
   return apiFetch("/settings", {
     method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     body: JSON.stringify(body),
   });
 }

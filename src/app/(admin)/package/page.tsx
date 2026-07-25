@@ -48,7 +48,7 @@ export default function DashboardPagee(){
             <div className="p-5">
                 <div className="flex flex-col gap-y-10">
                     {/* judul */}
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div className="flex flex-col">
                             <span className="text-2xl font-semibold">Package</span>
                             <span className="text-sm">manage all wedding packages available on your website.</span>

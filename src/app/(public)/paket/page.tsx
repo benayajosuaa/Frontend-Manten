@@ -46,20 +46,20 @@ export default async function Home(){
             {/* SECTION 1 */}
             <div className={questrial.className}>
                 <div className="text-black bg-white">
-                    <div className="p-15 pt-30">
-                        <div className="flex flex-col gap-y-15">
+                    <div className="px-6 pb-20 pt-28 sm:px-8 md:pt-32 lg:px-15">
+                        <div className="mx-auto flex max-w-7xl flex-col gap-y-10 lg:gap-y-15">
                             {/* Judul */}
                             <div>
-                                <h1 className="text-3xl">
+                                <h1 className="text-3xl leading-tight sm:text-4xl">
                                     <span>paket yang </span>
-                                    <span className="font-mediu">{settings.brand_name}</span>
+                                    <span className="font-medium">{settings.brand_name}</span>
                                     <span> tawarkan</span>
                                 </h1>
                             </div>
 
                             {/* Section Card */}
                             <div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
                                    {
                                         packages.map((pkg:any) => {
                                             const benefits = pkg.WhatYouGet || []
@@ -68,7 +68,7 @@ export default async function Home(){
                                             return (
                                                 <div
                                                     key={pkg.ID}
-                                                    className="rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition"
+                                                    className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
                                                 >
                                                     {/* isi card */}
                                                     <div className="flex flex-col">
@@ -77,7 +77,7 @@ export default async function Home(){
                                                             <img 
                                                                 src={pkg.ImageURL}
                                                                 alt={pkg.Name}
-                                                                className="w-full h-56 object-cover bg-amber-50"
+                                                                className="h-52 w-full object-cover bg-amber-50 sm:h-56"
                                                             /> 
                                                         </div>
 
@@ -91,7 +91,7 @@ export default async function Home(){
                                                             </div>
                                                             {/* deskripsi */}
                                                             <div>
-                                                                <p>
+                                                                    <p className="text-sm leading-6 text-gray-600">
                                                                     {pkg.Description}
                                                                 </p>
                                                             </div>
@@ -121,9 +121,9 @@ export default async function Home(){
                                                             {/* kisaran harga */}
                                                             <div>
                                                                 <div className="mt-4 mb-4 text-lg font-semibold">
-                                                                    Rp {pkg.PriceFrom.toLocaleString("id-ID")}
+                                                                    Rp {pkg.PriceFrom?.toLocaleString("id-ID")}
                                                                     {" - "}
-                                                                    Rp {pkg.PriceTo.toLocaleString("id-ID")}
+                                                                    Rp {pkg.PriceTo?.toLocaleString("id-ID")}
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -27,12 +27,12 @@ interface FooterProps {
 export default function Footer({ settings }: FooterProps){
     return (
         <div className={questrial.className}>
-            <div className="p-15 bg-[#3F4A2C] text-white">
+            <div className="bg-[#3F4A2C] px-6 py-12 text-white sm:px-8 lg:px-15 lg:py-15">
                 <div className="flex flex-col gap-10">
                   {/* LOGO & HYPERLINK & KONTAK*/}
-                  <div className="flex flex-row justify-between">
+                  <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
                     {/* ROW 1 */}
-                    <div className="flex flex-col gap-y-1 text-lg justify-between">
+                    <div className="flex max-w-xl flex-col justify-between gap-y-1 text-base sm:text-lg">
                       {/* Logo */}
                       <div className="pb-5">
                         <img src="/logo/manten-putih.png" className="h-5 w-auto" alt={settings.brand_name} />
@@ -48,11 +48,16 @@ export default function Footer({ settings }: FooterProps){
                         <div>
                           <span className="text-base">{settings.email}</span>
                         </div>
+                        <div className="mt-5 underline">
+                          <Link className="text-base text-[#b1b1b1]" href="/login">
+                            masuk ke sistem
+                          </Link>
+                        </div>
                       </div>
                     </div>
                     {/* ROW 2 */}
                     {/* hyperlink */}
-                    <div className="flex flew-row gap-x-25 pr-12">
+                    <div className="grid gap-8 sm:grid-cols-2 lg:gap-x-20 lg:pr-12">
                       {/* 1 */}
                       <div className="flex flex-col text-lg ">
                         <div className="pb-4 font-bold text-[#b9b9b9]">Link</div>
@@ -74,7 +79,7 @@ export default function Footer({ settings }: FooterProps){
                     </div>                  
                   </div>
 
-                  <div className="pt-20">
+                  <div className="pt-8 lg:pt-20">
                     <h1 className="text-center text-base">Manten © 2026. All rights reserved, part of <span><Link target="blank" href="https://www.kamar320.com/" className="underline">kamar320</Link></span></h1>
                   </div>   
                 </div>

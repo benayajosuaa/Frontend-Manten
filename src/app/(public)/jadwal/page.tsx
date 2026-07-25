@@ -2,7 +2,7 @@ import NavigationBar from "../../../component/navbar/index";
 import Footer from "../../../component/footer/index";
 import { getSettings } from "@/lib/api/setting";
 import { getPackages } from "@/lib/api/package";
-import { getEvent } from "@/lib/api/event";
+import { getEvents } from "@/lib/api/event";
 import { Inter, Montserrat, Questrial } from "next/font/google";
 
 export const inter = Inter({
@@ -29,7 +29,7 @@ export default async function Home() {
   const [settings, packagesData, eventsData] = await Promise.all([
     getSettings(),
     getPackages(),
-    getEvent(),
+    getEvents(),
   ]);
 
   // Pastikan data berbentuk array (fallback ke empty array jika null/undefined)
@@ -38,7 +38,7 @@ export default async function Home() {
 
   // 2. PERBAIKAN: Buat Map untuk lookup nama paket berdasarkan package_id
   const packageMap = new Map(
-    packages.map((pkg: any) => [pkg.id, pkg.name || pkg.title || "Unknown Package"])
+    packages.map((pkg: any) => [pkg.ID ?? pkg.id, pkg.Name ?? pkg.name ?? pkg.title ?? "Unknown Package"])
   );
 
   // 3. Grouping event berdasarkan Bulan & Tahun
@@ -83,11 +83,11 @@ export default async function Home() {
 
       {/* SECTION 1 */}
       <main className={questrial.className}>
-        <div className="px-6 py-16 pt-25 md:px-16 md:pt-36">
-          <div className="flex flex-col gap-y-4">
+        <div className="px-6 py-16 pt-28 sm:px-8 md:px-16 md:pt-36">
+          <div className="mx-auto flex max-w-7xl flex-col gap-y-4">
             {/* Judul */}
             <div>
-              <h1 className="text-3xl">
+              <h1 className="text-3xl leading-tight sm:text-4xl">
                 <span>kegiatan terbaru </span>
                 <span style={{ color: settings.primary_color }} className="font-semibold">{settings.brand_name}</span>
               </h1>
@@ -101,8 +101,8 @@ export default async function Home() {
                 Object.entries(groupedEvents).map(([month, monthEvents]) => (
                   <div key={month}>
                     {/* Header Bulan */}
-                    <div style={{ color: settings.primary_color }} className="mb-6 flex flex-row justify-end">
-                      <h2 className={`${montserrat.className} text-4xl md:text-5xl font-semibold`}>
+                    <div style={{ color: settings.primary_color }} className="mb-6 flex justify-start md:justify-end">
+                      <h2 className={`${montserrat.className} text-3xl font-semibold sm:text-4xl md:text-5xl`}>
                         {month}
                       </h2>
                     </div>
@@ -119,13 +119,12 @@ export default async function Home() {
                         return (
                           <div
                             key={event.id || event.event_date}
-                            className="flex flex-row  items-center border-b  border-[#d8d8d8] 
-                            py-8 hover:bg-neutral-50 transition-all cursor-pointer"
+                            className="grid gap-4 border-b border-[#d8d8d8] py-6 transition-all hover:bg-neutral-50 sm:grid-cols-[180px_1fr] sm:items-center md:py-8"
                           >
                             {/* Date */}
-                            <div className="basis-4/10">
-                              <div className="flex flex-row items-start ">
-                                <p className="uppercase tracking-widest text-gray-600 text-2xl">
+                            <div>
+                              <div className="flex items-start">
+                                <p className="text-xl uppercase tracking-widest text-gray-600 sm:text-2xl">
                                     {date.toLocaleDateString("en-US", {
                                     day: "2-digit",
                                     month: "short",
@@ -135,8 +134,8 @@ export default async function Home() {
                             </div>
 
                             {/* Content */}
-                            <div className="basis-6-/10">
-                              <h3 className="text-2xl md:text-3xl font-medium">
+                            <div>
+                              <h3 className="text-2xl font-medium md:text-3xl">
                                 {event.couple_name}
                               </h3>
                               <p className="mt-1 text-gray-500 text-sm md:text-base">

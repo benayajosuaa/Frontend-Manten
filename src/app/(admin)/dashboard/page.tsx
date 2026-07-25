@@ -61,13 +61,13 @@ export default function DashboardPagee() {
 
   return (
     <div className={montserrat.className}>
-      <div className="p-5">
+      <div className="p-2 sm:p-5">
         <div className="flex flex-col gap-y-10">
           {/* judul */}
           <div className="text-2xl font-semibold">Dashboard Admin</div>
 
           {/* section link */}
-          <div className="p-6 border-l pl-5 italic">
+          <div className="border-l p-5 text-sm leading-7 italic sm:p-6 sm:text-base">
             "hai selamat datang di halaman utama dashboard dari sistem ini,
             <br />
             untuk mengatur segala jenis tampilan client web, bisa pilih menu

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({
@@ -75,9 +76,9 @@ export default function LoginPage() {
 
   return (
     <main
-      className={`${montserrat.className} min-h-screen flex items-center justify-center bg-white`}
+      className={`${montserrat.className} flex min-h-screen items-center justify-center bg-white px-6 py-12`}
     >
-      <div className="flex items-center gap-14">
+      <div className="flex w-full max-w-4xl flex-col items-center gap-10 rounded-lg bg-white sm:gap-12 md:flex-row md:justify-center md:gap-14">
 
         {/* Logo */}
         <Image
@@ -89,12 +90,12 @@ export default function LoginPage() {
         />
 
         {/* Divider */}
-        <div className="h-72 border-l border-gray-300" />
+        <div className="hidden h-72 border-l border-gray-300 md:block" />
 
         {/* Form */}
         <form
           onSubmit={handleLogin}
-          className="flex flex-col gap-10"
+          className="flex w-full max-w-md flex-col gap-10"
         >
           {/* Email */}
           <div className="flex flex-col gap-2">
@@ -107,7 +108,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="
-                w-105
+                w-full
                 border-b
                 border-gray-500
                 py-2
@@ -129,7 +130,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="
-                w-105
+                w-full
                 border-b
                 border-gray-500
                 py-2
@@ -141,26 +142,36 @@ export default function LoginPage() {
           </div>
 
           {/* Button */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={loading}
-              className="
-                bg-[#394322]
-                text-white
-                px-8
-                py-3
-                rounded-md
-                transition-all
-                hover:bg-[#2f371b]
-                active:scale-95
-                disabled:opacity-50
-                disabled:cursor-not-allowed
-              "
-            >
-              {loading ? "Loading..." : "Login"}
-            </button>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center">
+              <Link className="text-[#898989] underline" href="/">
+                kembali ke beranda
+              </Link>
+            </div>
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="
+                  bg-[#394322]
+                  text-white
+                  px-8
+                  py-3
+                  rounded-md
+                  transition-all
+                  hover:bg-[#2f371b]
+                  active:scale-95
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed
+                "
+              >
+              
+                {loading ? "Loading..." : "Login"}
+              </button>
+            </div>   
           </div>
+
+         
         </form>
       </div>
     </main>

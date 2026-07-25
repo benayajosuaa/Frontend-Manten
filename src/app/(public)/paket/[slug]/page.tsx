@@ -48,8 +48,8 @@ export default async function PackageDetail({ params }: Props) {
             </div>
             
             {/* KONTEN */}
-            <div className="p-15 pt-28 pb-46">
-                <div  className="flex flex-col gap-y-10">
+            <div className="px-6 pb-24 pt-28 sm:px-8 lg:px-15 lg:pb-46">
+                <div  className="mx-auto flex max-w-7xl flex-col gap-y-8 lg:gap-y-10">
                     {/* BUTTON BACK */}
                     <div>
                         <Link href="/paket">
@@ -63,28 +63,28 @@ export default async function PackageDetail({ params }: Props) {
 
                     {/* Nama Paket */}
                     <div style={{ color: settings.primary_color }}>
-                        <h1 className="font-semibold text-7xl">{slug}</h1>
+                        <h1 className="break-words text-4xl font-semibold leading-tight sm:text-5xl lg:text-7xl">{pkg.Name ?? slug}</h1>
                     </div>
 
                     {/* foto, harga, dan deskripsi */}
                     <div>
-                        <div className="flex flex-row gap-x-13">
-                            <div className="basis-6/10">
+                        <div className="grid gap-8 lg:grid-cols-[1.45fr_1fr] lg:gap-13">
+                            <div>
                                 <img
                                     src={pkg.ImageURL}
                                     alt={pkg.Name}
                                     width={900}
-                                    className="w-full h-auto object-cover"
+                                    className="h-auto w-full rounded-lg object-cover"
                                 />
                             </div>
-                            <div className="basis-4/10">
+                            <div>
                                 <div className="flex flex-col ">
                                     <span>
                                         <h1 className="text-3xl font-semibold">Benefit Paket</h1>
                                     </span>
                                     <span className="mt-4">
                                         <ul className="list-disc pl-5 space-y-2">
-                                            {pkg.WhatYouGet.map((item: string, index: number) => (
+                                            {(pkg.WhatYouGet ?? []).map((item: string, index: number) => (
                                                 <li key={index}>
                                                     {item}
                                                 </li>
@@ -99,7 +99,7 @@ export default async function PackageDetail({ params }: Props) {
                     {/* Benefit */}
                     <div className="flex flex-col pt-8">
                         <span>
-                            <h1 className="text-3xl font-regular">
+                            <h1 className="text-2xl font-regular leading-tight sm:text-3xl">
                                 <span>apa itu paket </span>
                                 <span style={{ color: settings.primary_color }} className="font-semibold">{pkg.Name} ?</span>
                             </h1>
@@ -108,31 +108,31 @@ export default async function PackageDetail({ params }: Props) {
                             <div className="flex flex-col ">
                                     {/* Deskripsi */}
                                     <div>
-                                        <span className="text-lg">
+                                        <span className="text-base leading-8 sm:text-lg">
                                             {pkg.Description}
                                         </span>
                                     </div>
 
                                     {/* harga paket */}
-                                    <div className="text-3xl pt-25 pb-7">
-                                        <span>estimasi harga paket intimate </span>
+                                    <div className="pb-7 pt-12 text-2xl leading-tight sm:text-3xl lg:pt-25">
+                                        <span>estimasi harga paket </span>
                                         <span>{pkg.Name}</span>
                                         <span></span>
                                     </div>
                                     {/* Harga */}
-                                    <div className="flex flex-row gap-x-10">
+                                    <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-x-10">
                                         {/* mulai dari */}
                                         <div className="flex flex-col text-xl gap-y-2">
                                             <span>mulai dari:</span>
-                                            <span className="text-5xl">Rp {pkg.PriceFrom.toLocaleString("id-ID")}</span>
+                                            <span className="break-words text-3xl sm:text-4xl lg:text-5xl">Rp {pkg.PriceFrom.toLocaleString("id-ID")}</span>
                                         </div>
-                                        <div className="flex flex-row items-center text-3xl">
+                                        <div className="hidden flex-row items-center text-3xl sm:flex">
                                             <GoArrowRight />
                                         </div>
                                         {/* hingga dari */}
                                         <div className="flex flex-col text-xl gap-y-2">
                                             <span>hingga:</span>
-                                            <span className="text-5xl">Rp {pkg.PriceTo.toLocaleString("id-ID")}</span>
+                                            <span className="break-words text-3xl sm:text-4xl lg:text-5xl">Rp {pkg.PriceTo.toLocaleString("id-ID")}</span>
                                         </div>
                                     </div>
                                </div>
@@ -142,18 +142,18 @@ export default async function PackageDetail({ params }: Props) {
                     {/* button konsultation */}
                     <div className="pt-10 flex-col">
                         <div className="border-l-2">
-                            <p className="p-10 text-left text-lg italic">
+                            <p className="p-5 text-left text-base leading-8 italic sm:p-10 sm:text-lg">
                                 "Setiap pernikahan memiliki kebutuhan yang berbeda, <br/>Konsultasikan konsep, jumlah tamu, dan anggaran Anda bersama tim Manten,<br/> Kami akan membantu merekomendasikan paket yang paling sesuai"
                             </p>
                         </div>
-                        <div className="flex flex-col items-end justify-center pt-10">
+                        <div className="flex flex-col items-stretch justify-center pt-10 sm:items-end">
                             <Link
                                 href="/konsultasi"
                                 style={{
                                     backgroundColor: settings.primary_color,
                                 }}
                                 className="
-                                    inline-flex items-center justify-center rounded-lg px-8 py-4 font-medium text-white shadow-md transition-all duration-150 hover:brightness-110 hover:shadow-lg active:scale-95 active:shadow-sm
+                                    inline-flex items-center justify-center rounded-lg px-8 py-4 text-center font-medium text-white shadow-md transition-all duration-150 hover:brightness-110 hover:shadow-lg active:scale-95 active:shadow-sm
                                 "
                             >
                                 Simulasi & Konsultasi

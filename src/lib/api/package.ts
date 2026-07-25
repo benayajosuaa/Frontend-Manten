@@ -42,6 +42,22 @@ export async function getPackageBySlug(slug: string) {
     return data.data;
 }
 
+export async function getPackageAddons(id: string) {
+    const data = await apiFetch(`/packages/${id}/addons`, {
+        cache: "no-store",
+    });
+
+    return Array.isArray(data.data) ? data.data : [];
+}
+
+export async function getAddons() {
+    const data = await apiFetch("/addons/", {
+        cache: "no-store",
+    });
+
+    return Array.isArray(data.data) ? data.data : [];
+}
+
 export async function createPackage(body: any) {
     return apiFetch("/packages", {
         method: "POST",

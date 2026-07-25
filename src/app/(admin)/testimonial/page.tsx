@@ -182,7 +182,7 @@ export default function TestimonialPage() {
     <div className={montserrat.className}>
       <div className="p-5">
         <div className="flex flex-col gap-y-10">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex flex-col">
               <span className="text-2xl font-semibold">Testimonial</span>
               <span className="text-sm">

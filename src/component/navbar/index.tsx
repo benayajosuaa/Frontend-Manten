@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Inter, Montserrat, Questrial } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -26,22 +27,25 @@ export const questrial = Questrial({
 interface NavigationBarProps {
     primaryColor: string;
     secondaryColor: string;
+    variant?: "transparent" | "solid";
 }
 
 
 const navItems = [
-    {index:"1", href:"/", label:"Portofolio"},
-    {index:"2", href:"/", label:"Jadwal Kami"},
-    {index:"3", href:"/", label:"Paket"},
-    {index:"4", href:"/", label:"Kontak"},
+    {index:"1", href:"/portofolio", label:"Portofolio"},
+    {index:"2", href:"/jadwal", label:"Jadwal Kami"},
+    {index:"3", href:"/paket", label:"Paket"},
+    {index:"4", href:"/konsultasi", label:"Konsultasi"},
 ]
 
 
 
 
-export default function NavigationBar({ primaryColor, secondaryColor,}: NavigationBarProps){
+export default function NavigationBar({ primaryColor, secondaryColor, variant = "transparent",}: NavigationBarProps){
     const [isScrolled, setIsScrolled] = useState(false);
-    const logoSrc = isScrolled ? "/logo/manten.png" : "/logo/manten-putih.png";
+    const [isOpen, setIsOpen] = useState(false);
+    const isSolid = variant === "solid" || isScrolled;
+    const logoSrc = isSolid ? "/logo/manten.png" : "/logo/manten-putih.png";
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,24 +63,26 @@ export default function NavigationBar({ primaryColor, secondaryColor,}: Navigati
     return (
         <div className={montserrat.className}>
             <div
-                className="px-15 py-4 transition-all duration-300"
+                className="px-5 py-4 transition-all duration-300 sm:px-8 lg:px-15"
                 style={{
-                    backgroundColor: isScrolled ? secondaryColor : "transparent",
-                    color: isScrolled ? primaryColor : "#ffffff",
-                    boxShadow: isScrolled ? "0 8px 30px rgba(0, 0, 0, 0.08)" : "none",
+                    backgroundColor: isSolid ? secondaryColor : "transparent",
+                    color: isSolid ? primaryColor : "#ffffff",
+                    boxShadow: isSolid ? "0 8px 30px rgba(0, 0, 0, 0.08)" : "none",
                 }}
             >
-                <div className="flex flex-row text-xxl items-center justify-between">
-                    <div className="relative h-10 w-32">
-                        <Image
-                            src={logoSrc}
-                            alt="Manten"
-                            fill
-                            priority
-                            className="object-contain object-left"
-                        />
+                <div className="flex items-center justify-between">
+                    <div className="relative h-9 w-28 sm:h-10 sm:w-32">
+                        <Link href="/">
+                            <Image
+                                src={logoSrc}
+                                alt="Manten"
+                                fill
+                                priority
+                                className="object-contain object-left"
+                            />
+                        </Link>
                     </div>
-                    <div className="flex flex-row gap-x-10">
+                    <div className="hidden items-center gap-x-8 text-sm font-medium lg:flex">
                         {
                             navItems.map((x) => {
                                 return(
@@ -90,7 +96,30 @@ export default function NavigationBar({ primaryColor, secondaryColor,}: Navigati
                             })
                         }
                     </div>
+                    <button
+                        type="button"
+                        aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+                        onClick={() => setIsOpen((value) => !value)}
+                        className="grid h-10 w-10 place-items-center rounded-lg border border-current/20 lg:hidden"
+                    >
+                        {isOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
                 </div>  
+
+                {isOpen ? (
+                    <div className="mt-4 grid gap-2 rounded-lg border border-black/10 bg-white p-3 text-[#394322] shadow-lg lg:hidden">
+                        {navItems.map((x) => (
+                            <Link
+                                key={x.index}
+                                href={x.href}
+                                onClick={() => setIsOpen(false)}
+                                className="rounded-md px-3 py-3 text-sm font-medium hover:bg-gray-50"
+                            >
+                                {x.label}
+                            </Link>
+                        ))}
+                    </div>
+                ) : null}
             </div>
         </div>
     )
